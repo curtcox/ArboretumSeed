@@ -4,7 +4,7 @@ import java.util.*;
 
 public class RootGenerator {
     static Iterable<List<Leaf>> leaves(String... values) {
-        return Mutator.of(new Leaf())
+        return Mutator.of(new Leaf(),Leaf::copy)
                 .with(values(values),
                         Leaf::setCellType,
                         Leaf::setText,
@@ -20,7 +20,7 @@ public class RootGenerator {
     }
 
     static Iterable<List<Branch>> branches(String... values) {
-        return Mutator.of(new Branch())
+        return Mutator.of(new Branch(),Branch::copy)
                 .with(values(values),
                         Branch::setName,
                         Branch::setValue,
@@ -33,7 +33,7 @@ public class RootGenerator {
     }
 
     static Iterable<Root> roots(String... values) {
-        return Mutator.of(new Root())
+        return Mutator.of(new Root(),Root::copy)
                 .with(values(values),
                         Root::setName,
                         Root::setType,

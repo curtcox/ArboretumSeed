@@ -1,10 +1,11 @@
 package com.curtcox.arboretumseed;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Data @Builder(toBuilder = true) @NoArgsConstructor @AllArgsConstructor
 public class Leaf {
 
     private String cellType, text, tag, shape, color;
 
+    Leaf copy() { return toBuilder().build(); }
 }
