@@ -1,8 +1,7 @@
 
 package com.curtcox.arboretumseed;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 final class Mutator<T> {
@@ -48,7 +47,10 @@ final class Mutator<T> {
     }
 
     Iterable<T> singles() {
-        return new ArrayList<>();
+        return () -> new Iterator<T>() {
+            @Override public boolean hasNext() { return true; }
+            @Override public T next() { return t; }
+        };
     }
 
     Iterable<List<T>> lists() {
