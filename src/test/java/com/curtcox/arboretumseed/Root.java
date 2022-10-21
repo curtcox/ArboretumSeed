@@ -8,7 +8,7 @@ import java.util.*;
 public class Root {
 
    private String name, type, color, texture;
-   private List<Branch> branches;
+   private List<Branch> branches = new ArrayList<>();
 
    Root copy() { return toBuilder().build(); }
 

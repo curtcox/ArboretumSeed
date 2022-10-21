@@ -8,7 +8,7 @@ import java.util.*;
 public class Branch {
 
     private String name, value, description, brachiness, arity;
-    private List<Leaf> leaves;
+    private List<Leaf> leaves = new ArrayList<>();
 
     Branch copy() { return toBuilder().build(); }
 
