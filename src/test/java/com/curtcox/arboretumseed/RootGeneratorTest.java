@@ -109,7 +109,10 @@ public class RootGeneratorTest {
             empties.note(leaves);
             for (Leaf leaf : leaves) {
                 System.out.println("Leaf " + leaf);
-                if (a.equals(leaf.getColor()) && b.equals(leaf.getShape()) && a.equals(leaf.getCellType())) {
+                if (a.equals(leaf.getCellType()) &&
+                    b.equals(leaf.getShape()) &&
+                    a.equals(leaf.getColor()))
+                {
                     return;
                 }
             }

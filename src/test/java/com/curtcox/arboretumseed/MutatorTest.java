@@ -63,14 +63,13 @@ public class MutatorTest {
         Iterator<List<Set>> lists = mutator.lists().iterator();
         assertEquals(EMPTY_LIST,lists.next());
         assertEquals(singletonList(set),lists.next());
-        set.add(value);
-        assertEquals(singletonList(set),lists.next());
+        assertEquals(2,lists.next().size());
     }
 
     @Test
     public void mutator_with_no_mutations_returns_empty_list() {
         String value = "boo";
-        assertTrue(new Mutator<>(new Mutations(value,null)).lists().iterator().next().isEmpty());
+        assertTrue(new Mutator<String>(new Mutations(value,null)).lists().iterator().next().isEmpty());
     }
 
 }
