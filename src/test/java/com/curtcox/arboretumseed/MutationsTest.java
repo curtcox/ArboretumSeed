@@ -6,6 +6,7 @@ import org.junit.rules.Timeout;
 
 import java.util.*;
 
+import static com.curtcox.arboretumseed.Lists.list;
 import static org.junit.Assert.*;
 
 public class MutationsTest {
@@ -124,6 +125,24 @@ public class MutationsTest {
         branch.setBrachiness("B2");
         assertEquals(branch,branches.next());
         assertFalse(branches.hasNext());
+    }
+
+    @Test
+    public void count_of_branch_mutation_equals_actual_value() {
+        Branch branch = new Branch();
+        Mutations<Branch> mutations = new Mutations(branch, (Copier<Branch>) o -> o.copy());
+        mutations.add(MutationChoices.fromValues(Branch::setName,"a","b"));
+        mutations.add(MutationChoices.fromValues(Branch::setBrachiness,"c","d"));
+        assertEquals(list(mutations.values()),mutations.count());
+    }
+
+    @Test
+    public void count_of_leaf_mutations_equals_actual_value() {
+        Leaf leaf = new Leaf();
+        Mutations<Leaf> mutations = new Mutations(leaf, (Copier<Leaf>) o -> o.copy());
+        mutations.add(MutationChoices.fromValues(Leaf::setColor,"a","b"));
+        mutations.add(MutationChoices.fromValues(Leaf::setShape,"c","d"));
+        assertEquals(list(mutations.values()),mutations.count());
     }
 
 }

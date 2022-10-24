@@ -7,8 +7,8 @@ import org.junit.rules.Timeout;
 import java.util.*;
 
 import static java.util.Collections.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static com.curtcox.arboretumseed.Lists.*;
 
 public class MutationChoicesTest {
 
@@ -30,14 +30,6 @@ public class MutationChoicesTest {
         MutationChoices choices = MutationChoices.fromValues(Leaf::setShape,"spiral");
         List<Mutation<Leaf,String>> list = list(choices.mutations());
         assertEquals(1,list.size());
-    }
-
-    private static <T> List<T> list(Iterable<T> values) {
-        List<T> list = new ArrayList<>();
-        for (T t : values) {
-            list.add(t);
-        }
-        return list;
     }
 
     @Test
