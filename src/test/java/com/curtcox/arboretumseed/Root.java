@@ -5,7 +5,7 @@ import lombok.*;
 import java.util.*;
 
 @Data @Builder(toBuilder = true) @NoArgsConstructor @AllArgsConstructor
-public class Root {
+final class Root {
 
    private String name, type, color, texture;
    private List<Branch> branches = new ArrayList<>();

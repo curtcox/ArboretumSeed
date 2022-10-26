@@ -6,7 +6,7 @@ import org.junit.rules.Timeout;
 
 import java.util.*;
 
-import static com.curtcox.arboretumseed.Lists.list;
+import static com.curtcox.arboretumseed.Lists.*;
 import static org.junit.Assert.*;
 
 public class MutationsTest {
@@ -179,13 +179,6 @@ public class MutationsTest {
                 leaf(a2,b2,c2),
                 leaf(a1,b2,c3),
                 leaf(a3,b3,c3));
-    }
-
-    private void assertContains(List<Leaf> list, Leaf... leaves) {
-        for (Leaf leaf : leaves) {
-            String message = leaf + " should be in " + list;
-            assertTrue(message,list.contains(leaf));
-        }
     }
 
     private Leaf leaf(String color, String shape) {

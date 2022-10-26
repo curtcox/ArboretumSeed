@@ -2,7 +2,7 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
-public class RootGenerator {
+final class RootGenerator {
     static Iterable<List<Leaf>> leaves(String... values) {
         return Mutator.of(new Leaf(),Leaf::copy)
                 .with(values(values),

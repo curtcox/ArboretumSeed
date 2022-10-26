@@ -6,8 +6,6 @@ final class MutatedValuesListIterator<T> implements Iterator<List<T>> {
 
     final Iterator<T> singles;
     private final LinkedList<List<T>> values = new LinkedList<>();
-    private T current;
-    private int index = 0;
 
     MutatedValuesListIterator(Iterable<T> singles) {
         this.singles = singles.iterator();

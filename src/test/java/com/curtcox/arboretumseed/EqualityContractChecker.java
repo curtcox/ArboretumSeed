@@ -2,7 +2,7 @@ package com.curtcox.arboretumseed;
 
 import static org.junit.Assert.assertTrue;
 
-public class EqualityContractChecker {
+final class EqualityContractChecker {
 
     public static void consistent(Iterable<?> list) {
         for (Object a : list) {

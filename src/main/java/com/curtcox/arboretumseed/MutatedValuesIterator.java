@@ -2,8 +2,6 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
-import static java.util.Collections.*;
-
 /**
  * For producing mutated copies of an original value.
  */
