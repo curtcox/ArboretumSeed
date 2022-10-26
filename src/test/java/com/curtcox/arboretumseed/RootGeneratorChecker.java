@@ -49,7 +49,6 @@ public class RootGeneratorChecker {
     @Test
     public void roots_contains_branch_with_leaves() {
         for (Root root : roots()) {
-            System.out.println("Root " + root);
             for (Branch branch : root.getBranches()) {
                 if (!branch.getLeaves().isEmpty()) {
                     return;
@@ -63,7 +62,6 @@ public class RootGeneratorChecker {
     public void branches_contains_branch_with_leaves() {
         for (List<Branch> branches : branches()) {
             for (Branch branch : branches) {
-                System.out.println("Branch " + branch);
                 if (!branch.getLeaves().isEmpty()) {
                     return;
                 }
@@ -90,7 +88,6 @@ public class RootGeneratorChecker {
     @Test
     public void there_is_at_least_one_non_empty_leaf_list() {
         for (List<Leaf> leaves : leaves()) {
-            System.out.println("leaves " + leaves);
             if (!leaves.isEmpty()) {
                 return;
             }

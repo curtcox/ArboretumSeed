@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class MutationsTest {
 
     @Rule
-    public Timeout globalTimeout = Timeout.seconds(2);
+    public Timeout globalTimeout = Timeout.seconds(3);
 
     @Test
     public void can_create() {
@@ -133,7 +133,11 @@ public class MutationsTest {
         Mutations<Branch> mutations = new Mutations(branch, (Copier<Branch>) o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,"a","b"));
         mutations.add(MutationChoices.fromValues(Branch::setBrachiness,"c","d"));
-        assertEquals(list(mutations.values()),mutations.count());
+        assertValue(list(mutations.values()).size(),mutations.count());
+    }
+
+    private void assertValue(int size, Long count) {
+        assertEquals(size,(long)count);
     }
 
     @Test
@@ -142,7 +146,61 @@ public class MutationsTest {
         Mutations<Leaf> mutations = new Mutations(leaf, (Copier<Leaf>) o -> o.copy());
         mutations.add(MutationChoices.fromValues(Leaf::setColor,"a","b"));
         mutations.add(MutationChoices.fromValues(Leaf::setShape,"c","d"));
-        assertEquals(list(mutations.values()),mutations.count());
+        assertValue(list(mutations.values()).size(),mutations.count());
+    }
+
+    @Test
+    public void leaf_mutations_contains_expected_values_from_2x2() {
+        Leaf leaf = new Leaf();
+        String a = "a";
+        String b = "b";
+        String c = "c";
+        String d = "d";
+
+        Mutations<Leaf> mutations = new Mutations(leaf, (Copier<Leaf>) o -> o.copy());
+        mutations.add(MutationChoices.fromValues(Leaf::setColor,a,b));
+        mutations.add(MutationChoices.fromValues(Leaf::setShape,c,d));
+        assertContains(list(mutations.values()),leaf(a,c),leaf(a,d),leaf(b,c),leaf(b,d));
+    }
+
+    @Test
+    public void leaf_mutations_contains_expected_values_from_3x3() {
+        Leaf leaf = new Leaf();
+        String a1 = "a1"; String a2 = "a2"; String a3 = "a3";
+        String b1 = "b1"; String b2 = "b2"; String b3 = "b3";
+        String c1 = "c1"; String c2 = "c2"; String c3 = "c3";
+
+        Mutations<Leaf> mutations = new Mutations(leaf, (Copier<Leaf>) o -> o.copy());
+        mutations.add(MutationChoices.fromValues(Leaf::setColor,a1,a2,a3));
+        mutations.add(MutationChoices.fromValues(Leaf::setShape,b1,b2,b3));
+        mutations.add(MutationChoices.fromValues(Leaf::setText,c1,c2,c3));
+        assertContains(list(mutations.values()),
+                leaf(a1,b1,c1),
+                leaf(a2,b2,c2),
+                leaf(a1,b2,c3),
+                leaf(a3,b3,c3));
+    }
+
+    private void assertContains(List<Leaf> list, Leaf... leaves) {
+        for (Leaf leaf : leaves) {
+            String message = leaf + " should be in " + list;
+            assertTrue(message,list.contains(leaf));
+        }
+    }
+
+    private Leaf leaf(String color, String shape) {
+        Leaf leaf = new Leaf();
+        leaf.setColor(color);
+        leaf.setShape(shape);
+        return leaf;
+    }
+
+    private Leaf leaf(String color, String shape, String text) {
+        Leaf leaf = new Leaf();
+        leaf.setColor(color);
+        leaf.setShape(shape);
+        leaf.setText(text);
+        return leaf;
     }
 
 }
