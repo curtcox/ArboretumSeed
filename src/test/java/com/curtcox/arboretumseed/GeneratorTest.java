@@ -10,7 +10,7 @@ public class GeneratorTest {
     public void can_create_for_leaf_value() {
         LeafValue original = new LeafValue(null,null,null,null,null);
         LeafValue.LeafValueBuilder builder = LeafValue.builder();
-        Generator generator = Generator.of(original,builder);
+        Generator generator = Generator.of(original, builder, b -> b.build());
         assertNotNull(generator);
     }
 
@@ -18,7 +18,7 @@ public class GeneratorTest {
     public void can_create_for_leaf_value_with_mutation() {
         LeafValue original = new LeafValue(null,null,null,null,null);
         LeafValue.LeafValueBuilder builder = LeafValue.builder();
-        Generator generator = Generator.of(original,builder)
+        Generator generator = Generator.of(original,builder,b -> b.build())
                 .with(LeafValue.LeafValueBuilder::cellType,"x","y");
         assertNotNull(generator);
     }

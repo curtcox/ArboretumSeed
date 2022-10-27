@@ -9,9 +9,17 @@ final class Mutations<T> {
 
     private final List<MutationChoices<T,?>> mutations = new ArrayList<>();
 
-    Mutations(T value, Copier<T> copier) {
+    private Mutations(T value, Copier<T> copier) {
         this.value = value;
         this.copier = copier;
+    }
+
+    static <T> Mutations<T> fromCopier(T value, Copier<T> copier) {
+        return new Mutations(value,copier);
+    }
+
+    static <T,B> Mutations<B> fromBuilder(T value, B builder) {
+        return null;//new Mutations(value,builder);
     }
 
     void add(MutationChoices<T, ?> choices) {

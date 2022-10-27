@@ -3,8 +3,6 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
-import static java.util.Collections.*;
-
 /**
  * For exhaustively creating graphs of mutable objects.
  */
@@ -17,7 +15,7 @@ public final class Mutator<T> {
     }
 
     public static <T> Mutator<T> of(T value, Copier<T> copier) {
-        return new Mutator<>(new Mutations<>(value,copier));
+        return new Mutator<>(Mutations.fromCopier(value,copier));
     }
 
     public <O> Mutator<T> with(Setter<T,O> method, O... values) {

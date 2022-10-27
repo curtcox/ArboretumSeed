@@ -15,13 +15,13 @@ public class MutatorTest {
     public Timeout globalTimeout = Timeout.seconds(2);
     @Test
     public void can_create() {
-        assertNotNull(new Mutator<>(new Mutations<>("",null)));
+        assertNotNull(new Mutator<>(Mutations.fromCopier("",null)));
     }
 
     @Test
     public void mutator_with_no_mutations_returns_equivalent_value_for_singles() {
         String value = "??";
-        assertEquals(value,new Mutator<>(new Mutations(value,null)).singles().iterator().next());
+        assertEquals(value,new Mutator<>(Mutations.fromCopier(value,null)).singles().iterator().next());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class MutatorTest {
     @Test
     public void mutator_with_no_mutations_returns_empty_list() {
         String value = "boo";
-        assertTrue(new Mutator<String>(new Mutations(value,null)).lists().iterator().next().isEmpty());
+        assertTrue(new Mutator<String>(Mutations.fromCopier(value,null)).lists().iterator().next().isEmpty());
     }
 
 }

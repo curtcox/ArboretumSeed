@@ -5,7 +5,7 @@ import java.util.*;
 final class RootValueGenerator {
     static Iterable<List<LeafValue>> leaves(String... values) {
         LeafValue leaf = new LeafValue(null, null, null, null, null);
-        return Generator.of(leaf, LeafValue.builder())
+        return Generator.of(leaf, LeafValue.builder(),LeafValue.LeafValueBuilder::build)
                 .with(LeafValue.LeafValueBuilder::cellType,values)
                 .with(values(values),
                         LeafValue.LeafValueBuilder::text,
@@ -23,7 +23,7 @@ final class RootValueGenerator {
 
     static Iterable<List<BranchValue>> branches(String... values) {
         BranchValue branch = new BranchValue(null,null,null,null,null,null);
-        return Generator.of(branch,BranchValue.builder())
+        return Generator.of(branch,BranchValue.builder(),b -> b.build())
                 .with(values(values),
                         BranchValue.BranchValueBuilder::name,
                         BranchValue.BranchValueBuilder::value,
@@ -37,7 +37,7 @@ final class RootValueGenerator {
 
     static Iterable<RootValue> roots(String... values) {
         RootValue root = new RootValue(null,null,null,null,null);
-        return Generator.of(root,RootValue.builder())
+        return Generator.of(root,RootValue.builder(),b -> b.build())
                 .with(values(values),
                         RootValue.RootValueBuilder::name,
                         RootValue.RootValueBuilder::type,
