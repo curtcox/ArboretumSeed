@@ -15,7 +15,7 @@ public final class Mutator<T> {
     }
 
     public static <T> Mutator<T> of(T value, Copier<T> copier) {
-        return new Mutator<>(Mutations.fromCopier(value,copier));
+        return new Mutator<>(Mutations.of(value,copier));
     }
 
     public <O> Mutator<T> with(Setter<T,O> method, O... values) {

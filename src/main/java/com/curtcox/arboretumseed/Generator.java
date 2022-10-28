@@ -2,6 +2,10 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
+/**
+ * For exhaustively creating graphs of immutable objects -- or perhaps mutable ones that you want
+ * to make with a builder. Builders are cool.
+ */
 public final class Generator<T,B> {
 
     private final Mutations<B> mutations;
@@ -13,7 +17,7 @@ public final class Generator<T,B> {
     }
 
     public static <T,B> Generator<T,B> of(T value, B builder,Build<T,B> build) {
-        return new Generator<>(Mutations.fromBuilder(value,builder),build);
+        return new Generator<>(Mutations.of(builder,(x)->x),build);
     }
 
     public <O> Generator<T,B> with(Setter<B,O> method, O... values) {
@@ -36,8 +40,7 @@ public final class Generator<T,B> {
     Iterable<T> singles() {
         Iterator<B> builders = mutations.values().iterator();
         return () -> new Iterator<T>() {
-            @Override
-            public boolean hasNext() {
+            @Override public boolean hasNext() {
                 return builders.hasNext();
             }
 

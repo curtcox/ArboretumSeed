@@ -14,12 +14,8 @@ final class Mutations<T> {
         this.copier = copier;
     }
 
-    static <T> Mutations<T> fromCopier(T value, Copier<T> copier) {
+    static <T> Mutations<T> of(T value, Copier<T> copier) {
         return new Mutations(value,copier);
-    }
-
-    static <T,B> Mutations<B> fromBuilder(T value, B builder) {
-        return null;//new Mutations(value,builder);
     }
 
     void add(MutationChoices<T, ?> choices) {
