@@ -13,8 +13,6 @@ final class MutatedValuesIterator<T> implements Iterator<T> {
     private T current;
     private final Copier<T> copier;
     private int index;
-    private int generatedDuplicate;
-    private final boolean thereAreMutations;
 
     private MutatedValuesIterator(T initial, Copier<T> copier, List<MutationChoices<T,?>> mutations) {
         this.mutations = mutations;
@@ -22,7 +20,6 @@ final class MutatedValuesIterator<T> implements Iterator<T> {
         this.copier = copier;
         valuesToReturn.add(initial);
         iterators = iterators(mutations);
-        thereAreMutations = iterators.iterator().hasNext();
     }
 
     static <T> MutatedValuesIterator<T> of(T initial, Copier<T> copier, List<MutationChoices<T,?>> mutations) {
@@ -63,18 +60,11 @@ final class MutatedValuesIterator<T> implements Iterator<T> {
         index++;
         T candidate = copier.copy(current);
         mutation.mutate(candidate);
-        if (generated.contains(candidate)) {
-            generatedDuplicate++;
-        } else {
-            generatedDuplicate = 0;
+        if (!generated.contains(candidate)) {
             current = candidate;
             valuesToReturn.add(current);
             generated.add(current);
         }
-    }
-
-    boolean thereAreMoreValuesToAdd() {
-        return generatedDuplicate<=iterators.size() * 4 && thereAreMutations;
     }
 
     private int computed() {
