@@ -3,19 +3,23 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
+import static com.curtcox.arboretumseed.debug.Debug.debug;
+
 /**
  * For exhaustively creating graphs of mutable objects.
  */
 public final class Mutator<T> {
 
+    private final T value;
     private final Mutations<T> mutations;
 
-    Mutator(Mutations<T> mutations) {
+    Mutator(T value,Mutations<T> mutations) {
+        this.value = value;
         this.mutations = mutations;
     }
 
     public static <T> Mutator<T> of(T value, Copier<T> copier) {
-        return new Mutator<>(Mutations.of(value,copier));
+        return new Mutator<>(value,Mutations.of(value,copier));
     }
 
     public <O> Mutator<T> with(Setter<T,O> method, O... values) {
@@ -36,11 +40,11 @@ public final class Mutator<T> {
     }
 
     Iterable<T> singles() {
-        return mutations.values();
+        return debug("singles",mutations.values());
     }
 
     Iterable<List<T>> lists() {
-        return () -> MutatedValuesListIterator.of(singles());
+        return () -> debug("MutatedValuesListIterator " + value,MutatedValuesListIterator.of(singles()));
     }
 
 }

@@ -2,6 +2,8 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
+import static com.curtcox.arboretumseed.debug.Debug.debug;
+
 final class Mutations<T> {
 
     private final T value;
@@ -23,7 +25,7 @@ final class Mutations<T> {
     }
 
     Iterable<T> values() {
-        return () -> MutatedValuesIterator.of(value,copier,mutations);
+        return () -> debug("Mutations " + value, MutatedValuesIterator.of(value,copier,mutations));
     }
 
     // Null means unknown

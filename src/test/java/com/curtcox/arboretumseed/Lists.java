@@ -29,4 +29,30 @@ final class Lists {
         }
     }
 
+    static <T> void assertContainsAll(List<T> list, Iterable<List<T>> sublists) {
+        for (List<T> sublist : sublists) {
+            String message = sublist + " should be in " + list;
+            assertTrue(message,containsSublist(list,sublist));
+        }
+    }
+
+    static boolean containsSublist(List list, List sublist) {
+        int stop = list.size() - sublist.size();
+        int size = sublist.size();
+        for (int i=0; i<stop; i++) {
+            if (sublist.equals(list.subList(i,i+size))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static List<Integer> _1_to_(int size) {
+        List<Integer> list = new ArrayList<>();
+        for (int i=0; i<size; i++) {
+            list.add(i+1);
+        }
+        return list;
+    }
+
 }

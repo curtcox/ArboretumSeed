@@ -15,6 +15,36 @@ public class RootGeneratorChecker {
     public Timeout globalTimeout = Timeout.seconds(2);
 
     @Test
+    public void leaves_contains_enough_leaves_when_no_leaf_mutations() {
+        assertEquals(2,Lists.list(leaves()).size());
+    }
+
+    @Test
+    public void leaves_contains_enough_leaves_when_1_leaf_mutation_value() {
+        assertEquals(7,Lists.list(leaves("foo")).size());
+    }
+
+    @Test
+    public void branches_contains_enough_branches_when_no_mutation_values() {
+        assertEquals(4,Lists.list(branches()).size());
+    }
+
+    @Test
+    public void branches_contains_enough_branches_when_1_mutation_value() {
+        assertEquals(9,Lists.list(branches("bar")).size());
+    }
+
+    @Test
+    public void roots_contains_enough_roots_when_no_mutation_values() {
+        assertEquals(4,Lists.list(roots()).size());
+    }
+
+    @Test
+    public void roots_contains_enough_roots_when_1_mutation_value() {
+        assertEquals(4,Lists.list(roots()).size());
+    }
+
+    @Test
     public void roots_contains_root_with_no_branches() {
         for (Root root : roots()) {
             if (root.getBranches().isEmpty()) {
@@ -53,6 +83,26 @@ public class RootGeneratorChecker {
                 if (!branch.getLeaves().isEmpty()) {
                     return;
                 }
+            }
+        }
+        fail();
+    }
+
+    @Test
+    public void branches_contains_list_with_no_branch() {
+        for (List<Branch> branches : branches()) {
+            if (branches.isEmpty()) {
+                return;
+            }
+        }
+        fail();
+    }
+
+    @Test
+    public void branches_contains_list_with_branch() {
+        for (List<Branch> branches : branches()) {
+            if (!branches.isEmpty()) {
+                return;
             }
         }
         fail();

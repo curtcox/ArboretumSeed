@@ -2,12 +2,15 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
+import static com.curtcox.arboretumseed.debug.Debug.debug;
 import static java.util.Collections.*;
 
 /**
  * A method, plus a list of values it can be given.
  */
 final class MutationChoices<T,O> {
+// TODO FIXME fix equals/hashcode
+
     final Setter<T,O> method;
     final O[] values;
     final Iterable<O> producer;
@@ -27,7 +30,7 @@ final class MutationChoices<T,O> {
     }
 
     Iterable<Mutation> mutations() {
-        return values==null ? fromProducer() : fromValues();
+        return debug("MutationChoices",values==null ? fromProducer() : fromValues());
     }
 
     Iterable<Mutation> fromValues() {
@@ -38,7 +41,7 @@ final class MutationChoices<T,O> {
 
     Iterable<Mutation> fromProducer() {
         Iterator<O> values = producer.iterator();
-        return () -> new Iterator<Mutation>() {
+        return () -> debug("MutationChoices from Producer",new Iterator<Mutation>() {
             @Override
             public boolean hasNext() {
                 return values.hasNext();
@@ -48,7 +51,7 @@ final class MutationChoices<T,O> {
             public Mutation next() {
                 return new Mutation(method,values.next());
             }
-        };
+        });
 
     }
 

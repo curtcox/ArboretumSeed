@@ -7,13 +7,28 @@ import org.junit.rules.Timeout;
 import java.util.*;
 
 import static com.curtcox.arboretumseed.RootValueGenerator.*;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static com.curtcox.arboretumseed.TestUtil.*;
+import static org.junit.Assert.*;
 
 public class RootValueGeneratorChecker {
 
     @Rule
-    public Timeout globalTimeout = Timeout.seconds(2);
+    public Timeout globalTimeout = Timeout.seconds(1);
+
+    @Test
+    public void roots_contains_enough_roots() {
+        assertGreaterThan(3,Lists.list(roots()).size());
+    }
+
+    @Test
+    public void branches_contains_enough_branches() {
+        assertGreaterThan(3,Lists.list(branches()).size());
+    }
+
+    @Test
+    public void leaves_contains_enough_leaves() {
+        assertEquals(2,Lists.list(leaves()).size());
+    }
 
     @Test
     public void roots_contains_root_with_no_branches() {
@@ -39,6 +54,7 @@ public class RootValueGeneratorChecker {
     public void roots_contains_branch_with_no_leaves() {
         for (RootValue root : roots()) {
             for (BranchValue branch : root.getBranches()) {
+                System.out.println("branch = " + branch);
                 if (branch.getLeaves().isEmpty()) {
                     return;
                 }

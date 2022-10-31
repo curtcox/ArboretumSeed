@@ -15,13 +15,13 @@ public class MutatorTest {
     public Timeout globalTimeout = Timeout.seconds(2);
     @Test
     public void can_create() {
-        assertNotNull(new Mutator<>(Mutations.of("",null)));
+        assertNotNull(new Mutator<>("",Mutations.of("",null)));
     }
 
     @Test
     public void mutator_with_no_mutations_returns_equivalent_value_for_singles() {
         String value = "??";
-        assertEquals(value,new Mutator<>(Mutations.of(value,null)).singles().iterator().next());
+        assertEquals(value,new Mutator<>(value,Mutations.of(value,null)).singles().iterator().next());
     }
 
     @Test
@@ -63,13 +63,14 @@ public class MutatorTest {
         Iterator<List<Set>> lists = mutator.lists().iterator();
         assertEquals(EMPTY_LIST,lists.next());
         assertEquals(singletonList(set),lists.next());
-        assertEquals(2,lists.next().size());
+        assertEquals(singletonList(singleton(value)),lists.next());
+        assertFalse(lists.hasNext());
     }
 
     @Test
     public void mutator_with_no_mutations_returns_empty_list() {
         String value = "boo";
-        assertTrue(new Mutator<String>(Mutations.of(value,null)).lists().iterator().next().isEmpty());
+        assertTrue(new Mutator<String>(value,Mutations.of(value,null)).lists().iterator().next().isEmpty());
     }
 
 }
