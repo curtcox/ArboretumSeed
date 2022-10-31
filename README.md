@@ -1,4 +1,4 @@
-# ArboretumSeed
+# ArboretumSeed ![CI](https://github.com/curtcox/ArboretumSeed/actions/workflows/maven.yml/badge.svg)
 For generating Java object trees.
 
 # Why?
