@@ -54,7 +54,6 @@ public class RootValueGeneratorChecker {
     public void roots_contains_branch_with_no_leaves() {
         for (RootValue root : roots()) {
             for (BranchValue branch : root.getBranches()) {
-                System.out.println("branch = " + branch);
                 if (branch.getLeaves().isEmpty()) {
                     return;
                 }
