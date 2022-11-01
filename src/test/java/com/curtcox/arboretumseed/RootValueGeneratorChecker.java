@@ -31,6 +31,21 @@ public class RootValueGeneratorChecker {
     }
 
     @Test
+    public void leaves_contains_enough_leaves_when_1_leaf_mutation_value() {
+        assertEquals(7,Lists.list(leaves("foo")).size());
+    }
+
+    @Test
+    public void branches_contains_enough_branches_when_no_mutation_values() {
+        assertEquals(4,Lists.list(branches()).size());
+    }
+
+    @Test
+    public void branches_contains_enough_branches_when_1_mutation_value() {
+        assertEquals(9,Lists.list(branches("bar")).size());
+    }
+
+    @Test
     public void roots_contains_root_with_no_branches() {
         for (RootValue root : roots()) {
             if (root.getBranches().isEmpty()) {
