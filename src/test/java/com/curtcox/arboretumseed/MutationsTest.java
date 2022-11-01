@@ -41,14 +41,14 @@ public class MutationsTest {
 
     @Test
     public void count_is_2_when_1_mutation() {
-        Mutations<Branch> mutations = Mutations.of(new Branch(), (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(new Branch(), o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,"foo"));
         assertCount(2,mutations);
     }
 
     @Test
     public void count_is_3_when_2_mutations() {
-        Mutations<Branch> mutations = Mutations.of(new Branch(), (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(new Branch(), o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,"foo","bar"));
         assertCount(3,mutations);
     }
@@ -57,7 +57,7 @@ public class MutationsTest {
     public void mutator_with_1_mutation_returns_original_and_mutation_from_singles() {
         Branch branch = new Branch();
         String value = toString();
-        Mutations<Branch> mutations = Mutations.of(branch, (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(branch, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,value));
         Iterator<Branch> branches = mutations.values().iterator();
         assertEquals(branch,branches.next());
@@ -71,7 +71,7 @@ public class MutationsTest {
         Branch branch = new Branch();
         String name = "Fred";
         String branchiness = "Very";
-        Mutations<Branch> mutations = Mutations.of(branch, (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(branch, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,name));
         mutations.add(MutationChoices.fromValues(Branch::setBrachiness,branchiness));
         Iterator<Branch> branches = mutations.values().iterator();
@@ -85,7 +85,7 @@ public class MutationsTest {
 
     @Test
     public void count_is_4_when_3_mutations() {
-        Mutations<Branch> mutations = Mutations.of(new Branch(), (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(new Branch(), o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,"One","Three"));
         mutations.add(MutationChoices.fromValues(Branch::setBrachiness,"Two"));
         assertCount(4,mutations);
@@ -94,7 +94,7 @@ public class MutationsTest {
     @Test
     public void mutator_with_3_mutations_returns_original_and_3_mutations_from_singles() {
         Branch branch = new Branch();
-        Mutations<Branch> mutations = Mutations.of(branch, (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(branch, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,"One","Three"));
         mutations.add(MutationChoices.fromValues(Branch::setBrachiness,"Two"));
         Iterator<Branch> branches = mutations.values().iterator();
@@ -111,7 +111,7 @@ public class MutationsTest {
     @Test
     public void mutator_with_4_mutations_returns_original_and_4_mutations_from_singles() {
         Branch branch = new Branch();
-        Mutations<Branch> mutations = Mutations.of(branch, (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(branch, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,"A1","A2"));
         mutations.add(MutationChoices.fromValues(Branch::setBrachiness,"B1","B2"));
         Iterator<Branch> branches = mutations.values().iterator();
@@ -124,13 +124,16 @@ public class MutationsTest {
         assertEquals(branch,branches.next());
         branch.setBrachiness("B2");
         assertEquals(branch,branches.next());
+        branch.setName("A1");
+        assertTrue(branches.hasNext());
+        assertEquals(branch,branches.next());
         assertFalse(branches.hasNext());
     }
 
     @Test
     public void count_of_branch_mutation_equals_actual_value() {
         Branch branch = new Branch();
-        Mutations<Branch> mutations = Mutations.of(branch, (Copier<Branch>) o -> o.copy());
+        Mutations<Branch> mutations = Mutations.of(branch, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Branch::setName,"a","b"));
         mutations.add(MutationChoices.fromValues(Branch::setBrachiness,"c","d"));
         assertValue(list(mutations.values()).size(),mutations.count());
@@ -143,7 +146,7 @@ public class MutationsTest {
     @Test
     public void count_of_leaf_mutations_equals_actual_value() {
         Leaf leaf = new Leaf();
-        Mutations<Leaf> mutations = Mutations.of(leaf, (Copier<Leaf>) o -> o.copy());
+        Mutations<Leaf> mutations = Mutations.of(leaf, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Leaf::setColor,"a","b"));
         mutations.add(MutationChoices.fromValues(Leaf::setShape,"c","d"));
         assertValue(list(mutations.values()).size(),mutations.count());
@@ -157,10 +160,15 @@ public class MutationsTest {
         String c = "c";
         String d = "d";
 
-        Mutations<Leaf> mutations = Mutations.of(leaf, (Copier<Leaf>) o -> o.copy());
+        Mutations<Leaf> mutations = Mutations.of(leaf, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Leaf::setColor,a,b));
         mutations.add(MutationChoices.fromValues(Leaf::setShape,c,d));
-        assertContains(list(mutations.values()),leaf(a,c),leaf(a,d),leaf(b,c),leaf(b,d));
+        assertContains(list(mutations.values()),
+                leaf(null,null),
+                leaf(a,null),
+                leaf(a,c),leaf(a,d),
+                leaf(b,c),leaf(b,d)
+        );
     }
 
     @Test
@@ -170,7 +178,7 @@ public class MutationsTest {
         String b1 = "b1"; String b2 = "b2"; String b3 = "b3";
         String c1 = "c1"; String c2 = "c2"; String c3 = "c3";
 
-        Mutations<Leaf> mutations = Mutations.of(leaf, (Copier<Leaf>) o -> o.copy());
+        Mutations<Leaf> mutations = Mutations.of(leaf, o -> o.copy());
         mutations.add(MutationChoices.fromValues(Leaf::setColor,a1,a2,a3));
         mutations.add(MutationChoices.fromValues(Leaf::setShape,b1,b2,b3));
         mutations.add(MutationChoices.fromValues(Leaf::setText,c1,c2,c3));

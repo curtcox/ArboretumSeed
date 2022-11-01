@@ -36,8 +36,9 @@ final class Mutations<T> {
             if (count==null) {
                 return null;
             }
-            total = total + count;
+            total = total * count;
         }
+        total = total + mutations.size();
         return total;
     }
 }

@@ -11,17 +11,24 @@ final class States {
         priorStates.add(state);
     }
 
-    Mutation findUnusedChoice(MutationChoices choices) {
-        for (Object o : choices.mutations()) {
+    Mutation findUnusedChoice(MutationChoices field) {
+        for (Object o : field.mutations()) {
             Mutation mutation = (Mutation) o;
-            State candidate = state.apply(choices,mutation);
-            if (!priorStates.contains(candidate)) {
-                state = candidate;
-                priorStates.add(candidate);
+            if (mutationProducesNewState(field,mutation)) {
                 return mutation;
             }
         }
         return null;
+    }
+
+    boolean mutationProducesNewState(MutationChoices field, Mutation mutation) {
+        State candidate = state.apply(field,mutation);
+        if (priorStates.contains(candidate)) {
+            return false;
+        }
+        state = candidate;
+        priorStates.add(candidate);
+        return true;
     }
 
 }
