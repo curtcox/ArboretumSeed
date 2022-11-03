@@ -70,7 +70,7 @@ public class MutatorTest {
     @Test
     public void mutator_with_no_mutations_returns_empty_list() {
         String value = "boo";
-        assertTrue(new Mutator<String>(value,Mutations.of(value,null)).lists().iterator().next().isEmpty());
+        assertTrue(new Mutator<>(value, Mutations.of(value, null)).lists().iterator().next().isEmpty());
     }
 
 }

@@ -4,6 +4,9 @@ import java.util.*;
 
 import static java.util.Collections.*;
 
+/**
+ * The shadow state of a mutable object.
+ */
 final class State {
 
     final Map<MutationChoices,Object> values;

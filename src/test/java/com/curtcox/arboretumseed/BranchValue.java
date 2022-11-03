@@ -7,7 +7,8 @@ import java.util.*;
 @Value @Builder
 final class BranchValue {
 
-    private String name, value, description, brachiness, arity;
-    private List<LeafValue> leaves;
+    private String name, value, description, brachiness;
+    private int arity;
+    @Builder.Default private List<LeafValue> leaves = new ArrayList<>();
 
 }

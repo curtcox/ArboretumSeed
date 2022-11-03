@@ -2,6 +2,9 @@ package com.curtcox.arboretumseed;
 
 import java.util.*;
 
+/**
+ * For producing a set of distinct states using different mutation choices.
+ */
 final class StateTracker {
 
     MutationChoices last;

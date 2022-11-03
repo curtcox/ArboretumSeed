@@ -26,12 +26,12 @@ public class RootGeneratorChecker {
 
     @Test
     public void branches_contains_enough_branches_when_no_mutation_values() {
-        assertEquals(4,Lists.list(branches()).size());
+        assertEquals(9,Lists.list(branches()).size());
     }
 
     @Test
     public void branches_contains_enough_branches_when_1_mutation_value() {
-        assertEquals(9,Lists.list(branches("bar")).size());
+        assertEquals(13,Lists.list(branches("bar")).size());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class RootGeneratorChecker {
 
     @Test
     public void branches_contains_enough_branches_when_2_mutation_value() {
-        assertEquals(56,Lists.list(branches("bar","baz")).size());
+        assertEquals(87,Lists.list(branches("bar","baz")).size());
     }
 
     @Test
@@ -56,27 +56,27 @@ public class RootGeneratorChecker {
 
     @Test
     public void roots_contains_enough_roots_when_2_mutation_values() {
-        assertEquals(46,Lists.list(roots("a","b")).size());
+        assertEquals(106,Lists.list(roots("a","b")).size());
     }
 
     @Test
     public void roots_contains_enough_roots_when_3_mutation_values() {
-        assertEquals(223,Lists.list(roots("a","b","c")).size());
+        assertEquals(493,Lists.list(roots("a","b","c")).size());
     }
 
     @Test
     public void roots_contains_enough_roots_when_4_mutation_values() {
-        assertEquals(713,Lists.list(roots("a","b","c","d")).size());
+        assertEquals(1591,Lists.list(roots("a","b","c","d")).size());
     }
 
     @Test
     public void roots_contains_enough_roots_when_no_mutation_values() {
-        assertEquals(4,Lists.list(roots()).size());
+        assertEquals(8,Lists.list(roots()).size());
     }
 
     @Test
     public void roots_contains_enough_roots_when_1_mutation_value() {
-        assertEquals(8,Lists.list(roots("a")).size());
+        assertEquals(12,Lists.list(roots("a")).size());
     }
 
     @Test

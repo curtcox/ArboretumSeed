@@ -16,7 +16,7 @@ public final class Generator<T,B> {
         this.build = build;
     }
 
-    public static <T,B> Generator<T,B> of(T value, B builder,Build<T,B> build) {
+    public static <T,B> Generator<T,B> of(B builder,Build<T,B> build) {
         return new Generator<>(Mutations.of(builder,(x)->x),build);
     }
 

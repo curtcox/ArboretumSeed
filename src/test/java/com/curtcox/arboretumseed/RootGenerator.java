@@ -25,9 +25,9 @@ final class RootGenerator {
                         Branch::setName,
                         Branch::setValue,
                         Branch::setDescription,
-                        Branch::setBrachiness,
-                        Branch::setArity
+                        Branch::setBrachiness
                 )
+                .with(Branch::setArity,-1,0,1)
                 .with(Branch::setLeaves, leaves())
                 .lists();
     }

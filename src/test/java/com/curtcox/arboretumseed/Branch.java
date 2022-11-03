@@ -7,7 +7,8 @@ import java.util.*;
 @Data @Builder(toBuilder = true) @NoArgsConstructor @AllArgsConstructor
 final class Branch {
 
-    private String name, value, description, brachiness, arity;
+    private String name, value, description, brachiness;
+    private int arity;
     private List<Leaf> leaves = new ArrayList<>();
 
     Branch copy() { return toBuilder().build(); }

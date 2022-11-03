@@ -8,6 +8,7 @@ import java.util.*;
 
 import static com.curtcox.arboretumseed.RootValueGenerator.*;
 import static com.curtcox.arboretumseed.TestUtil.*;
+import static com.curtcox.arboretumseed.debug.Debug.debug;
 import static org.junit.Assert.*;
 
 public class RootValueGeneratorChecker {
@@ -37,12 +38,12 @@ public class RootValueGeneratorChecker {
 
     @Test
     public void branches_contains_enough_branches_when_no_mutation_values() {
-        assertEquals(4,Lists.list(branches()).size());
+        assertEquals(9,Lists.list(branches()).size());
     }
 
     @Test
     public void branches_contains_enough_branches_when_1_mutation_value() {
-        assertEquals(9,Lists.list(branches("bar")).size());
+        assertEquals(13,Lists.list(branches("bar")).size());
     }
 
     @Test
@@ -92,7 +93,7 @@ public class RootValueGeneratorChecker {
     @Test
     public void branches_contains_branch_with_leaves() {
         for (List<BranchValue> branches : branches()) {
-            for (BranchValue branch : branches) {
+            for (BranchValue branch : debug(branches)) {
                 if (!branch.getLeaves().isEmpty()) {
                     return;
                 }

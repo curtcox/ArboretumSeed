@@ -7,6 +7,7 @@ import static com.curtcox.arboretumseed.debug.Debug.debug;
 
 /**
  * For exhaustively creating graphs of mutable objects.
+ * This class is designed to support the fluent creation of IterableS of the mutated objects.
  */
 public final class Mutator<T> {
 
@@ -18,6 +19,11 @@ public final class Mutator<T> {
         this.mutations = mutations;
     }
 
+    /**
+     * Create a mutator for a specific object.
+     * The original object is not mutated.
+     * The given copier is required so that values produced are different objects.
+     */
     public static <T> Mutator<T> of(T value, Copier<T> copier) {
         return new Mutator<>(value,Mutations.of(value,copier));
     }
@@ -39,11 +45,18 @@ public final class Mutator<T> {
         return this;
     }
 
-    Iterable<T> singles() {
+    /**
+     * Return mutated copies of the original value.
+     * That is copies with different combinations of the given mutations (setter,value) applied.
+     */
+    public Iterable<T> singles() {
         return debug("singles",mutations.values());
     }
 
-    Iterable<List<T>> lists() {
+    /**
+     * Return (possibly empty) lists of mutated copies of the original value.
+     */
+    public Iterable<List<T>> lists() {
         return () -> debug("MutatedValuesListIterator " + value,MutatedValuesListIterator.of(singles()));
     }
 
