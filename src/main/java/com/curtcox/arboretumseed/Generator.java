@@ -37,7 +37,10 @@ public final class Generator<T,B> {
         return this;
     }
 
-    Iterable<T> singles() {
+    /**
+     * Return values generated using the specified builder.
+     */
+    public Iterable<T> singles() {
         Iterator<B> builders = mutations.values().iterator();
         return () -> new Iterator<T>() {
             @Override public boolean hasNext() {
@@ -51,7 +54,10 @@ public final class Generator<T,B> {
         };
     }
 
-    Iterable<List<T>> lists() {
+    /**
+     * Return (possibly empty) lists produced with the specified builder.
+     */
+    public Iterable<List<T>> lists() {
         return () -> MutatedValuesListIterator.of(singles());
     }
 }

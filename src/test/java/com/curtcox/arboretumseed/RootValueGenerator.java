@@ -7,7 +7,6 @@ import static com.curtcox.arboretumseed.RootValue.*;
 
 final class RootValueGenerator {
     static Iterable<List<LeafValue>> leaves(String... values) {
-        //LeafValue leaf = new LeafValue(null, null, null, null, null,false);
         return Generator.of(LeafValue.builder(),LeafValue.LeafValueBuilder::build)
                 .with(LeafValue.LeafValueBuilder::cellType,values)
                 .with(values(values),
@@ -25,7 +24,6 @@ final class RootValueGenerator {
     }
 
     static Iterable<List<BranchValue>> branches(String... values) {
-        //BranchValue branch = new BranchValue(null,null,null,null,0,null);
         return Generator.of(BranchValue.builder(),b -> b.build())
                 .with(values(values),
                         BranchValueBuilder::name,
@@ -39,7 +37,6 @@ final class RootValueGenerator {
     }
 
     static Iterable<RootValue> roots(String... values) {
-        //RootValue root = new RootValue(null,null,null,null,0.0,null);
         return Generator.of(RootValue.builder(),b -> b.build())
                 .with(values(values),
                         RootValueBuilder::name,
