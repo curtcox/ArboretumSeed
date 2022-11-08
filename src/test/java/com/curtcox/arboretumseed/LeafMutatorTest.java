@@ -42,6 +42,17 @@ public class LeafMutatorTest {
     }
 
     @Test
+    public void singles_contains_2_specified_boolean_mutations() {
+        Mutator<Leaf> mutator = Mutator.of(new Leaf(),Leaf::copy)
+                .with(Leaf::setPointy,true,false);
+        assertContains(
+                list(mutator.singles()),
+                new Leaf(null,null,null,null,null,false),
+                new Leaf(null,null,null,null,null,true)
+        );
+    }
+
+    @Test
     public void singles_contains_1_specified_string_mutation_across_several_fields() {
         Mutator<Leaf> mutator = Mutator.of(new Leaf(),Leaf::copy)
                 .with(Arrays.asList("x"),
@@ -87,6 +98,77 @@ public class LeafMutatorTest {
                 new Leaf(null,"T1",null,null,null,false),
                 new Leaf(null,"T2",null,null,null,false),
                 new Leaf(null,"T3",null,null,null,false)
+        );
+    }
+
+    @Test
+    public void singles_contains_combined_2x2x2_mutations() {
+        Mutator<Leaf> mutator = Mutator.of(new Leaf(),Leaf::copy)
+                .with(Leaf::setShape,"maple","oak")
+                .with(Leaf::setText,"T1","T2")
+                .with(Leaf::setPointy,true,false);
+        assertContains(
+                list(mutator.singles()),
+                new Leaf(null,"T1",null,"maple",null,false),
+                new Leaf(null,"T1",null,"oak",null,false),
+                new Leaf(null,"T2",null,"maple",null,false),
+                new Leaf(null,"T2",null,"oak",null,false),
+                new Leaf(null,"T1",null,"maple",null,true),
+                new Leaf(null,"T1",null,"oak",null,true),
+                new Leaf(null,"T2",null,"maple",null,true),
+                new Leaf(null,"T2",null,"oak",null,true)
+        );
+    }
+
+    @Test
+    public void singles_contains_combined_2x3x2_mutations() {
+        Mutator<Leaf> mutator = Mutator.of(new Leaf(),Leaf::copy)
+                .with(Leaf::setShape,"maple","oak")
+                .with(Leaf::setText,"T1","T2","T3")
+                .with(Leaf::setPointy,true,false);
+        assertContains(
+                list(mutator.singles()),
+                new Leaf(null,"T1",null,"maple",null,false),
+                new Leaf(null,"T1",null,"oak",null,false),
+                new Leaf(null,"T2",null,"maple",null,false),
+                new Leaf(null,"T2",null,"oak",null,false),
+                new Leaf(null,"T3",null,"maple",null,false),
+                new Leaf(null,"T3",null,"oak",null,false),
+                new Leaf(null,"T1",null,"maple",null,true),
+                new Leaf(null,"T1",null,"oak",null,true),
+                new Leaf(null,"T2",null,"maple",null,true),
+                new Leaf(null,"T2",null,"oak",null,true),
+                new Leaf(null,"T3",null,"maple",null,true),
+                new Leaf(null,"T3",null,"oak",null,true)
+        );
+    }
+
+    @Test
+    public void singles_contains_combined_3x3x2_mutations() {
+        Mutator<Leaf> mutator = Mutator.of(new Leaf(),Leaf::copy)
+                .with(Leaf::setShape,"maple","oak","pine")
+                .with(Leaf::setText,"T1","T2","T3")
+                .with(Leaf::setPointy,true,false);
+        assertContains(
+                list(mutator.singles()),
+                new Leaf(null,"T1",null,"maple",null,false),
+                new Leaf(null,"T1",null,"oak",null,false),
+                new Leaf(null,"T2",null,"maple",null,false),
+                new Leaf(null,"T2",null,"oak",null,false),
+                new Leaf(null,"T3",null,"maple",null,false),
+                new Leaf(null,"T3",null,"oak",null,false),
+                new Leaf(null,"T1",null,"maple",null,true),
+                new Leaf(null,"T1",null,"oak",null,true),
+                new Leaf(null,"T2",null,"maple",null,true),
+                new Leaf(null,"T2",null,"oak",null,true),
+                new Leaf(null,"T3",null,"maple",null,true),
+                new Leaf(null,"T3",null,"oak",null,true),
+                new Leaf(null,"T1",null,"pine",null,false),
+                new Leaf(null,"T2",null,"pine",null,false),
+                new Leaf(null,"T3",null,"pine",null,false),
+                new Leaf(null,"T1",null,"pine",null,true),
+                new Leaf(null,"T2",null,"pine",null,true),
+                new Leaf(null,"T3",null,"pine",null,true)
         );
     }
 
