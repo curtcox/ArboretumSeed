@@ -1,6 +1,8 @@
 package com.curtcox.arboretumseed;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 
 import java.util.*;
 
@@ -9,6 +11,9 @@ import static java.util.Collections.*;
 import static org.junit.Assert.*;
 
 public class MutatedValuesIteratorTest {
+
+    @Rule
+    public Timeout globalTimeout = Timeout.seconds(2);
 
     @Test
     public void can_create_for_leaf() {

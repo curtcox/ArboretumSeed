@@ -1,6 +1,8 @@
 package com.curtcox.arboretumseed;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 
 import java.util.*;
 
@@ -11,6 +13,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class BranchMutatorTest {
+
+    @Rule
+    public Timeout globalTimeout = Timeout.seconds(2);
 
     @Test
     public void can_create() {
