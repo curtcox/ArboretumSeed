@@ -30,17 +30,22 @@ final class MutatedValuesIterator<T> implements Iterator<T> {
         if (valuesToReturn.isEmpty()) throw new IllegalStateException();
         T value = valuesToReturn.removeFirst();
         if (valuesToReturn.isEmpty()) {
-            generateNextValueToReturn(value);
+            T next = generateNextValueToReturn(value);
+            if (next!=null) {
+                valuesToReturn.add(next);
+            }
         }
         return value;
     }
 
-    private void generateNextValueToReturn(T value) {
+    private T generateNextValueToReturn(T value) {
         Mutation mutation = tracker.next();
-        if (mutation!=null) {
-            T copy = copier.copy(value);
-            mutation.mutate(copy);
-            valuesToReturn.add(copy);
+        if (mutation==null) {
+            return null;
         }
+        T copy = copier.copy(value);
+        mutation.mutate(copy);
+        return copy;
     }
+
 }
